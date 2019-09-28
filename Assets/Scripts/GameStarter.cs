@@ -7,12 +7,16 @@ using UnityEngine.SceneManagement;
 public class GameStarter : MonoBehaviour {
 
     public Animator animator;
-    public Button play;
+    public Button classic;
+    public Button hardMode;
+    public int mode;
 
     // Use this for initialization
     void Start () {
-        Button playBtn = play.GetComponent<Button>();
-        playBtn.onClick.AddListener(TaskOnClick);
+        Button playBtn = classic.GetComponent<Button>();
+        playBtn.onClick.AddListener(classicBtnClick);
+        Button hardBtn = hardMode.GetComponent<Button>();
+        hardMode.onClick.AddListener(hardBtnClick);
 
 
     }
@@ -22,12 +26,25 @@ public class GameStarter : MonoBehaviour {
 		
 	}
 
-    void TaskOnClick()
+    void classicBtnClick()
     {
+        mode = 0;
+        animator.SetTrigger("fade");
+    }
+    void hardBtnClick()
+    {
+        mode = 2;
         animator.SetTrigger("fade");
     }
     void StartGame()
     {
-        SceneManager.LoadScene(0);
+        if (mode == 0)
+        {
+            SceneManager.LoadScene(1);
+        }
+        else if(mode == 2)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 }

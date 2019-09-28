@@ -6,6 +6,7 @@
   <projectSetting name="GooglePlayServices.AutoResolverEnabled" value="True" />
   <projectSetting name="GooglePlayServices.ExplodeAars" value="True" />
   <projectSetting name="GooglePlayServices.PrebuildWithGradle" value="False" />
+  <projectSetting name="GooglePlayServices.PromptBeforeAutoResolution" value="False" />
   <projectSetting name="GooglePlayServices.UseGradleDaemon" value="False" />
   <projectSetting name="GooglePlayServices.VerboseLogging" value="False" />
 </projectSettings>

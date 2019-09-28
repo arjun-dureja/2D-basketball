@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Basketball.unity
     guid: 5875904b6911f5742b73e397602de109
+  - enabled: 1
+    path: Assets/Hardmode.unity
+    guid: b2be9eb1f812e41cebb0fadf44c855ee
+  - enabled: 1
+    path: Assets/TimeChallenge.unity
+    guid: 40d2975f12b7c4693b256a25fba3097e
+  - enabled: 1
+    path: Assets/Customize.unity
+    guid: 32ae50f13df5d4010b102276c12a04f8
   m_configObjects: {}

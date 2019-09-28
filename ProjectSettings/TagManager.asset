@@ -14,6 +14,12 @@ TagManager:
   - Pointer
   - Yellow
   - ScoreCheck
+  - Coin
+  - HardModeBar
+  - HardModeBall
+  - HardModeScoreCheck
+  - TimeChallengeBar
+  - TimeChallengeScoreCheck
   layers:
   - Default
   - TransparentFX
@@ -48,6 +54,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Floor Layer
+    uniqueID: 1614523265
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Swipe : MonoBehaviour
+public class Swipe: MonoBehaviour
 {
 
     Vector2 startPos, endPos, direction, newDirection, newEndPos;
@@ -23,9 +23,16 @@ public class Swipe : MonoBehaviour
 
     public Button pause;
     public GameObject pauseMenu;
+    public GameObject restartMenu;
     public Button resume;
     public Button mainMenu;
     public Button reset;
+    public Button continueButton;
+    public Button close;
+    public Button mute;
+    public Button unmute;
+
+    public static bool swipeBall;
 
     void Awake()
     {
@@ -34,6 +41,7 @@ public class Swipe : MonoBehaviour
     }
     void Start()
     {
+        swipeBall = true;
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
         height = Camera.main.orthographicSize * 2.0f;
@@ -49,14 +57,28 @@ public class Swipe : MonoBehaviour
         mainMenu.onClick.AddListener(MainMenuButtonClick);
         Button resetBtn = reset.GetComponent<Button>();
         reset.onClick.AddListener(ResetButtonClick);
+        Button continueBtn = continueButton.GetComponent<Button>();
+        continueButton.onClick.AddListener(ContinueButtonClick);
+        Button closeBtn = close.GetComponent<Button>();
+        close.onClick.AddListener(CloseButtonClick);
+        Button muteBtn = mute.GetComponent<Button>();
+        mute.onClick.AddListener(MuteButtonClick);
+        Button unmuteBtn = unmute.GetComponent<Button>();
+        unmute.onClick.AddListener(UnmuteButtonClick);
+
+        if(AudioListener.volume == 0)
+        {
+            mute.gameObject.SetActive(false);
+            unmute.gameObject.SetActive(true);
+        }
 
     }
 
     bool TouchOnBall()
     {
         Vector2 screenPos = cam.WorldToScreenPoint(ballPos.position);
-        if (startPos.x > (screenPos.x - (ballSize.rect.width / 4) - 30) && startPos.x < (screenPos.x + (ballSize.rect.width / 4) + 30)
-            && startPos.y > (screenPos.y - (ballSize.rect.height / 2) - 30) && startPos.y < (screenPos.y + (ballSize.rect.height / 4) + 30))
+        if (startPos.x > (screenPos.x - (ballSize.rect.width / 4) - 150) && startPos.x < (screenPos.x + (ballSize.rect.width / 4) + 150)
+            && startPos.y > (screenPos.y - (ballSize.rect.height / 2) - 150) && startPos.y < (screenPos.y + (ballSize.rect.height / 4) + 150))
         {
             return true;
         }
@@ -70,40 +92,42 @@ public class Swipe : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (swipeBall == true)
         {
-            Time.fixedDeltaTime = 0.001f;
-            startPos = Input.GetTouch(0).position;
-        }
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-        {
-            endPos = Input.GetTouch(0).position;
-        }
-        if (TouchOnBall() && ball.transform.position.y < -3f && ball.gameObject.transform.localScale == new Vector3(0.28f, 0.28f, 0f))
-        {
-            ballCollider.sharedMaterial = null;
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
+                Time.fixedDeltaTime = 0.001f;
                 startPos = Input.GetTouch(0).position;
             }
-
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 endPos = Input.GetTouch(0).position;
-                if (endPos != startPos)
+            }
+            if (TouchOnBall() && ball.transform.position.y < -3f && ball.gameObject.transform.localScale == new Vector3(0.28f, 0.28f, 0f))
+            {
+                ballCollider.sharedMaterial = null;
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    newEndPos = new Vector2(endPos.x, endPos.y + 1000);
-                    direction = newEndPos - startPos;
-                    newDirection = direction / direction.magnitude;
-                    GetComponent<Rigidbody2D>().velocity = newDirection * 30.8f;
-                    MusicSource.Play();
+                    startPos = Input.GetTouch(0).position;
+                }
+
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    endPos = Input.GetTouch(0).position;
+                    if (endPos != startPos)
+                    {
+                        newEndPos = new Vector2(endPos.x, endPos.y + 1000);
+                        direction = newEndPos - startPos;
+                        newDirection = direction / direction.magnitude;
+                        GetComponent<Rigidbody2D>().velocity = newDirection * 30.8f;
+                        MusicSource.Play();
+                    }
                 }
             }
-        }
-        else
-        {
-            ballCollider.sharedMaterial = mat;
+            else
+            {
+                ballCollider.sharedMaterial = mat;
+            }
         }
     }
 
@@ -111,6 +135,8 @@ public class Swipe : MonoBehaviour
     {
         Time.timeScale = 0;
         Score.moveNet = false;
+        HardMode.moveNet = false;
+        TimeChallenge.moveNet = false;
         BarCollider.shrinkBall = false;
         pauseMenu.SetActive(true);
     }
@@ -118,6 +144,8 @@ public class Swipe : MonoBehaviour
     {
         Time.timeScale = 1;
         Score.moveNet = true;
+        HardMode.moveNet = true;
+        TimeChallenge.moveNet = true;
         BarCollider.shrinkBall = true;
         pauseMenu.SetActive(false);
     }
@@ -127,8 +155,35 @@ public class Swipe : MonoBehaviour
     }
     void ResetButtonClick()
     {
+        if (SceneManager.GetActiveScene().name == "Basketball")
+        {
+            restartMenu.SetActive(true);
+        }
+        if (SceneManager.GetActiveScene().name == "TimeChallenge")
+        {
+            SceneManager.LoadScene(3);
+        }
+    }
+    void ContinueButtonClick()
+    {
         PlayerPrefs.SetInt("HighscoreLevel", 0);
         Score.num = 0;
         SceneManager.LoadScene(0);
+    }
+    void CloseButtonClick()
+    {
+        restartMenu.SetActive(false);
+    }
+    void MuteButtonClick()
+    {
+        AudioListener.volume = 0;
+        mute.gameObject.SetActive(false);
+        unmute.gameObject.SetActive(true);
+    }
+    void UnmuteButtonClick()
+    {
+        AudioListener.volume = 1;
+        unmute.gameObject.SetActive(false);
+        mute.gameObject.SetActive(true);
     }
 }
