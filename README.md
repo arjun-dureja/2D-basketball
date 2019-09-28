@@ -4,6 +4,8 @@
 
 A basketball game for Android and iOS devices; accepted to the Google Play store and Apple App Store
 
+Made with Unity, written in C#
+
 iOS:
 https://apps.apple.com/ca/app/2d-basketball/id1426185582
 
