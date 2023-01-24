@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 #if UNITY_ANDROID
@@ -77,7 +76,6 @@ public class Score : MonoBehaviour {
 
 
     void Start() {
-        AppLovin.ShowAd(AppLovin.AD_POSITION_CENTER, AppLovin.AD_POSITION_BOTTOM);
         StartCoroutine(ExecuteAfterTime(0.1f));
         coin.sortingOrder = -1;
         net.sortingOrder = -2;

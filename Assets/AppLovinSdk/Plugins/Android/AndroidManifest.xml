@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.ArjunDureja.Basketball2D">
-    <application>
-        <meta-data
-            android:name="applovin.sdk.key"
-        android:value="blT3W15rTlQhPKkcarKUZZ46toGIC1vDT62aVhQucHACCSDo7xaRPFVtAHpG5sE6SsB2pu8xHmxy6OFnFvth2s" />
-    </application>
-</manifest>

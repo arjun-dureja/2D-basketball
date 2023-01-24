@@ -1,11 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-#if UNITY_ANDROID
-#elif UNITY_IPHONE
-    using UnityEngine.iOS;
-#endif
+
 public class HardMode : MonoBehaviour
 {
 
@@ -74,7 +70,6 @@ public class HardMode : MonoBehaviour
 
     void Start()
     {
-        AppLovin.ShowAd(AppLovin.AD_POSITION_CENTER, AppLovin.AD_POSITION_BOTTOM);
         StartCoroutine(ExecuteAfterTime(0.1f));
         scoreNum = 0;
         scoreTemp = 0;

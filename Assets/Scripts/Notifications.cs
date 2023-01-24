@@ -2,7 +2,6 @@
 #elif UNITY_IPHONE
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Collections;
 using NotificationServices = UnityEngine.iOS.NotificationServices;
 using NotificationType = UnityEngine.iOS.NotificationType;
 using System;

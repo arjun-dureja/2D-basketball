@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 #if UNITY_ANDROID
@@ -54,15 +52,6 @@ public class BackgroundColor : MonoBehaviour
 
     void Start()
     {
-        #if UNITY_ANDROID
-        #elif UNITY_IPHONE
-                AppLovin.SetSdkKey("blT3W15rTlQhPKkcarKUZZ46toGIC1vDT62aVhQucHACCSDo7xaRPFVtAHpG5sE6SsB2pu8xHmxy6OFnFvth2s");
-        #endif
-        AppLovin.InitializeSdk();
-        AppLovin.SetUnityAdListener("AppLovinListener");
-        AppLovin.ShowAd(AppLovin.AD_POSITION_CENTER, AppLovin.AD_POSITION_BOTTOM);
-        AppLovin.LoadRewardedInterstitial();
-
         if (PlayerPrefs.HasKey("BallAvailability") && PlayerPrefs.HasKey("NetAvailability") && PlayerPrefs.HasKey("FloorAvailability")) { }
         else
         {

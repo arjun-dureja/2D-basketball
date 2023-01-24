@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -116,11 +115,7 @@ public class Customize : MonoBehaviour
 
     void Start()
     {
-        #if UNITY_ANDROID
-            freeCoins.gameObject.SetActive(false);
-        #elif UNITY_IPHONE
-        #endif
-        AppLovin.ShowAd(AppLovin.AD_POSITION_CENTER, AppLovin.AD_POSITION_BOTTOM);
+        freeCoins.gameObject.SetActive(false);
 
         numSkins = 5;
 
@@ -238,10 +233,6 @@ public class Customize : MonoBehaviour
         purchaseFloor.onClick.AddListener(PurchaseFloorButtonClick);
         Button selectFloorBtn = selectFloor.GetComponent<Button>();
         selectFloor.onClick.AddListener(SelectFloorButtonClick);
-
-        Button freeCoinsBtn = freeCoins.GetComponent<Button>();
-        freeCoins.onClick.AddListener(FreeCoinsButtonClick);
-
     }
 
     // Update is called once per frame
@@ -540,14 +531,6 @@ public class Customize : MonoBehaviour
         yield return new WaitForSeconds(delay);
         noCoins = false;
         insufficientCoins.color = new Color32(255, 0, 0, 0);
-    }
-
-    void FreeCoinsButtonClick()
-    {
-        if (AppLovin.IsIncentInterstitialReady())
-        {
-            AppLovin.ShowRewardedInterstitial();
-        }
     }
 
 }

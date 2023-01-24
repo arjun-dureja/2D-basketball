@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class BarCollider : MonoBehaviour {
 
@@ -21,18 +18,14 @@ public class BarCollider : MonoBehaviour {
     public float width;
     public float ballWidth;
 
-
-
     public static bool shrinkBall;
 
     void Start () {
         shrinkBall = true;
         ball = GameObject.FindGameObjectWithTag("Ball");
-        Rigidbody2D ballRb = rb.GetComponent<Rigidbody2D>();
         height = Camera.main.orthographicSize * 2.0f;
         width = height * Screen.width / Screen.height;
         ballWidth = ballCollider.bounds.size.x;
-
     }
 
     // Update is called once per frame
